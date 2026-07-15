@@ -633,7 +633,7 @@ class ModbusRTU extends EventEmitter {
     /**
      * Class making ModbusRTU calls fun and easy.
      *
-     * @param {SerialPort} port the serial port to use.
+     * @param {SerialPort} [port] the serial port to use.
      */
     constructor(port) {
         super();
