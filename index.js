@@ -1462,4 +1462,3 @@ module.exports.ServerTCP = require("./servers/servertcp");
 try {
     module.exports.ServerSerial = require("./servers/serverserial");
 } catch (err) { /* optional native dep */ }
-module.exports.default = module.exports;
