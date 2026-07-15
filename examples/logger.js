@@ -1,7 +1,7 @@
 
 
 // create an empty modbus client
-// let ModbusRTU = require("modbus-serial");
+// let ModbusRTU = require("modbus-deno");
 const ModbusRTU = require("../index");
 let client = new ModbusRTU();
 let timeoutRunRef = null;

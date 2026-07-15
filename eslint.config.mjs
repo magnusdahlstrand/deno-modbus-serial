@@ -14,7 +14,7 @@ export default defineConfig([
             "**/coverage/**",
             "**/.nyc_output/**",
             "**/docs/**",
-            "**/modbus-serial/**"
+            "**/modbus-deno/**"
         ]
     },
     js.configs.recommended,

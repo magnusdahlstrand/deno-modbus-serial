@@ -1,7 +1,7 @@
 "use strict";
 
 const { EventEmitter } = require("events");
-const debug = require("debug")("modbus-serial");
+const debug = require("debug")("modbus-deno");
 
 /**
  * Bluetooth Low Energy port for Modbus.

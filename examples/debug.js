@@ -2,15 +2,15 @@
 
 /* DEBUG environment variable is used to enable debug logging
 
-  Set the DEBUG variable to be "modbus-serial" before running this example:
-  export DEBUG=modbus-serial
+  Set the DEBUG variable to be "modbus-deno" before running this example:
+  export DEBUG=modbus-deno
 
   To stop debugging, unset the DEBUG variable:
   unset DEBUG
  */
 
 // create an empty modbus client
-// let ModbusRTU = require("modbus-serial");
+// let ModbusRTU = require("modbus-deno");
 const ModbusRTU = require("../index");
 const client = new ModbusRTU();
 

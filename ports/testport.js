@@ -1,7 +1,7 @@
 "use strict";
 const events = require("events");
 const EventEmitter = events.EventEmitter || events;
-const modbusSerialDebug = require("debug")("modbus-serial");
+const modbusSerialDebug = require("debug")("modbus-deno");
 
 /* Add bit operation functions to Buffer
  */

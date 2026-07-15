@@ -3,7 +3,7 @@
 const events = require("events");
 const EventEmitter = events.EventEmitter || events;
 const SerialPort = require("serialport").SerialPort;
-const modbusSerialDebug = require("debug")("modbus-serial");
+const modbusSerialDebug = require("debug")("modbus-deno");
 
 const crc16 = require("../utils/crc16");
 const calculateLrc = require("./../utils/lrc");

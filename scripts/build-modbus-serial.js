@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const out = path.join(root, "modbus-serial");
+const out = path.join(root, "modbus-deno");
 fs.mkdirSync(out, { recursive: true });
 
 for (const name of ["apis", "ports", "servers", "utils"]) {

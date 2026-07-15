@@ -1,9 +1,16 @@
 {
-  "name": "modbus-serial",
-  "version": "8.0.25",
-  "description": "A pure JavaScript implementation of MODBUS-RTU (Serial and TCP) for NodeJS. The serialport package is an optional dependency (use npm install --no-optional to skip).",
+  "name": "modbus-deno",
+  "version": "8.0.25-alpha",
+  "description": "A fork of modbus-deno with minimal changes to make it work with deno.",
   "main": "index.js",
   "types": "index.d.ts",
+  "type": "commonjs",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
   "files": [
     "index.js",
     "apis",
@@ -59,9 +66,7 @@
     "mocha": "^11.7.5",
     "mockery": "^2.1.0",
     "nyc": "^18.0.0",
-    "sinon": "^21.0.3",
-    "web-bluetooth-mock": "^1.2.0",
-    "webbluetooth": "^3.6.0"
+    "sinon": "^21.0.3"
   },
   "dependencies": {
     "debug": "^4.4.3"

@@ -16,7 +16,7 @@
  */
 const events = require("events");
 const EventEmitter = events.EventEmitter || events;
-const modbusSerialDebug = require("debug")("modbus-serial");
+const modbusSerialDebug = require("debug")("modbus-deno");
 const { SerialPort } = require("serialport");
 const ServerSerialPipeHandler = require("./serverserial_pipe_handler");
 

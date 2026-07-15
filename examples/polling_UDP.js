@@ -11,7 +11,7 @@
 
 // ==============================================================
 // create an empty modbus client
-const ModbusRTU   = require("modbus-serial");
+const ModbusRTU   = require("modbus-deno");
 const client      = new ModbusRTU();
 
 let mbsStatus   = "Initializing...";    // holds a status of Modbus

@@ -1,7 +1,7 @@
 
 
 // create an empty modbus client
-// let ModbusRTU = require("modbus-serial");
+// let ModbusRTU = require("modbus-deno");
 const ModbusRTU = require("../index");
 
 const coils = Buffer.alloc(160008, 0); // coils and discrete inputs

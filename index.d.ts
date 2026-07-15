@@ -3,8 +3,6 @@
  * not installed (`npm install --no-optional`), TypeScript may not resolve those modules — use
  * `skipLibCheck` or add `serialport` as a devDependency. Runtime serial APIs are optional (README).
  */
-import { ModbusRTU } from "./ModbusRTU";
-export * from "./ServerTCP";
-export * from "./ServerSerial";
-
-export default ModbusRTU;
+export * from "./ModbusRTU.d.ts";
+export * from "./ServerTCP.d.ts";
+export * from "./ServerSerial.d.ts";

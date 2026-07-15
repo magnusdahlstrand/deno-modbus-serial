@@ -1,10 +1,23 @@
-# modbus-serial
+# modbus-deno
 
-A pure JavaScript implementation of MODBUS-RTU (Serial and TCP) for NodeJS.
+A pure JavaScript implementation of MODBUS-RTU (Serial and TCP) for ~NodeJS~ Deno with Typescript.
 
-[![NPM download](https://img.shields.io/npm/dm/modbus-serial.svg)](https://www.npmjs.com/package/modbus-serial)
-[![NPM version](https://badge.fury.io/js/modbus-serial.png)](http://badge.fury.io/js/modbus-serial)
-![Build Status](https://github.com/yaacov/node-modbus-serial/workflows/ci/badge.svg)
+> [!NOTE]
+> This is a fork of [node-modbus-serial](https://github.com/yaacov/node-modbus-serial) with minimal changes to make it work in Deno without type errors.
+
+> [!IMPORTANT]
+> Only Modbus TCP works currently. Modbus RTU over serial is planned.
+>
+> Only `client.connectTCP(opts)` has been tested and validated as of yet.
+>
+> See [Compatibility](#compatibility) section below for info on where it's been run successfully.
+
+> [!IMPORTANT]
+> The structure of imports has changed (see [Import the package](#import-the-package)).
+
+> [!NOTE]
+> This fork is in the early stages and the README has not been updated fully, and the examples in the examples directory have not been updated. The examples in the README have been updated.
+
 
 
 Modbus is a serial communications protocol, first used in 1979.
@@ -15,7 +28,7 @@ easy to deploy and maintain.
 
 ----
 
-- [What can I do with this module ?](#what-can-i-do-with-this-module-)
+- [What can I do with this module?](#what-can-i-do-with-this-module)
 - [Compatibility](#compatibility)
 - [Examples](#examples)
 - [Methods](https://github.com/yaacov/node-modbus-serial/wiki/Methods)
@@ -24,21 +37,51 @@ easy to deploy and maintain.
 
 #### Install
 
-    npm install modbus-serial
+```
+deno add modbus-deno
+```
 
-try these options on npm install to build, if you have problems to install
+#### Run in Deno
 
-    --unsafe-perm --build-from-source
+Deno requires some flags to execute correctly.
+
+```
+deno run --allow-env --allow-read --allow-ffi --allow-net src/main.ts
+```
+
+> [!NOTE]
+> That all of these flags are required has not been verified.
+
+#### Import the package
+
+The project's export structure has changed to work better with Deno and its LSP.
+
+```typescript
+import { ModbusRTU } from 'modbus-deno';
+await port.connectTCP(Deno.env.get('IP'), { port: Deno.env.get('PORT') });
+// Use as normal
+```
+
+#### Import types for use in typescript
+
+Types are exported and can be used as such:
+
+```typescript
+import { type WriteCoilResult } from 'modbus-serial';
+```
 
 ##### Optional `serialport` dependency
 
-[`serialport`](https://www.npmjs.com/package/serialport) is an **optional** dependency: npm tries to install it, but if the install fails (or you skip optionals), `modbus-serial` still installs and TCP/UDP usage works.
+> [!NOTE]
+> This section has not been updated after the port and might contain incorrect information.
 
-The version range pulled in by this package targets **serialport 13.x**, which requires **Node.js 20 or newer**. If you need serial on an older Node release, install a compatible `serialport` major (for example 12.x) explicitly alongside `modbus-serial`, or use `--no-optional` and TCP-only flows.
+[`serialport`](https://www.npmjs.com/package/serialport) is an **optional** dependency: npm tries to install it, but if the install fails (or you skip optionals), `modbus-deno` still installs and TCP/UDP usage works.
+
+The version range pulled in by this package targets **serialport 13.x**, which requires **Node.js 20 or newer**. If you need serial on an older Node release, install a compatible `serialport` major (for example 12.x) explicitly alongside `modbus-deno`, or use `--no-optional` and TCP-only flows.
 
 **Skip installing optional dependencies** (no native serial build, smaller tree):
 
-    npm install modbus-serial --no-optional
+    npm install modbus-deno --no-optional
 
 Or in `.npmrc`: `optional=false`
 
@@ -55,6 +98,9 @@ TypeScript: `ServerSerial.d.ts` imports `serialport` types. If you use `--no-opt
 
 #### Development
 
+> [!NOTE]
+> This section has not been updated after the port and might contain incorrect information.
+
 This repo uses **npm** and a committed **`package-lock.json`**. After cloning:
 
     npm ci
@@ -65,14 +111,14 @@ To refresh dependencies after editing `package.json`, run `npm install` and comm
 
 Optional maintainer tasks (generated output is gitignored):
 
-- `npm run clean` — remove `modbus-serial/` and `docs/gen/`
-- `npm run build` — copy `apis`, `ports`, `servers`, and `utils` into `modbus-serial/`
+- `npm run clean` — remove `modbus-deno/` and `docs/gen/`
+- `npm run build` — copy `apis`, `ports`, `servers`, and `utils` into `modbus-deno/`
 - `npm run doc` — generate API HTML under `docs/gen/` (JSDoc 4 + clean-jsdoc-theme)
 - `npm run doc:examples` — copy `examples/` into `docs/gen/examples/`
 - `npm run docs` — run `doc` then `doc:examples`
 - `npm run publish:prepare` — runs `build` then `docs` (mirrored package tree plus generated HTML and copied examples)
 
-#### What can I do with this module ?
+#### What can I do with this module?
 
 This class makes it fun and easy to communicate with electronic
 devices such as irrigation controllers, protocol droids and robots.
@@ -81,7 +127,7 @@ Many industrial electronic devices implement modbus.
 Arduino can also talk modbus and you can control your projects and robots
 using modbus.
 
-Arduino libraries for modbus slave:
+Arduino libraries for modbus servers:
 * https://github.com/yaacov/arduino-modbus-slave
 * https://github.com/smarmengol/Modbus-Master-Slave-for-Arduino
 
@@ -93,8 +139,7 @@ Node Modbus-WebSocket bridge:
 
 #### Compatibility
 
-###### Version of NodeJS:
-This module has not been tested on every single version of NodeJS. For best results you should stick to LTS versions, which are denoted by even major version numbers e.g. 4.x, 6.x, 8.x.
+This library has been tested with Deno 2.9.2 on MacOS only.
 
 ###### These classes are implemented:
 
@@ -133,9 +178,9 @@ This module has not been tested on every single version of NodeJS. For best resu
 #### Examples
 
 ###### Read and Write
-``` javascript
+``` typescript
 // create an empty modbus client
-const ModbusRTU = require("modbus-serial");
+import { ModbusRTU } from 'modbus-deno';
 const client = new ModbusRTU();
 
 // open connection to a serial port
@@ -159,8 +204,8 @@ function read() {
 ```
 ----
 ###### Read on multiple slaves
-``` javascript
-const ModbusRTU = require("modbus-serial");
+``` typescript
+import { ModbusRTU } from 'modbus-deno';
 // create an empty modbus client
 const client = new ModbusRTU();
 // open connection to a serial port
@@ -214,9 +259,9 @@ getMetersValue(metersIdList);
 ```
 ----
 ###### Logger Serial
-``` javascript
+``` typescript
 // create an empty modbus client
-const ModbusRTU = require("modbus-serial");
+import { ModbusRTU } from 'modbus-deno';
 const client = new ModbusRTU();
 
 // open connection to a serial port
@@ -233,9 +278,9 @@ setInterval(function() {
 ```
 ----
 ###### Logger TCP
-``` javascript
+``` typescript
 // create an empty modbus client
-const ModbusRTU = require("modbus-serial");
+import { ModbusRTU } from 'modbus-deno';
 const client = new ModbusRTU();
 
 // open connection to a tcp line
@@ -252,9 +297,9 @@ setInterval(function() {
 ```
 ----
 ###### Logger UDP
-``` javascript
+``` typescript
 // create an empty modbus client
-const ModbusRTU = require("modbus-serial");
+import { ModbusRTU } from 'modbus-deno';
 const client = new ModbusRTU();
 
 // open connection to a udp line
@@ -271,9 +316,9 @@ setInterval(function() {
 ```
 ----
 ###### ModbusTCP Server
-``` javascript
+``` typescript
 // create an empty modbus client
-const ModbusRTU = require("modbus-serial");
+import { ModbusRTU } from 'modbus-deno';
 const vector = {
     getInputRegister: function(addr, unitID) {
         // Synchronous handling
@@ -327,10 +372,10 @@ serverTCP.on("socketError", function(err){
 ```
 ----
 ###### Read and Write Modbus ASCII
-``` javascript
+``` typescript
 // create an empty modbus client
-const Modbus = require("modbus-serial");
-const client = new Modbus();
+import { ModbusRTU } from 'modbus-deno';
+const client = new ModbusRTU();
 
 // open connection to a serial port
 client.connectAsciiSerial(
@@ -362,10 +407,10 @@ function read() {
 
 ###### Check modbusdb github repo at https://github.com/yarosdev/modbusdb for more information, feedback is welcome!
 
-Here is an example of using `modbusdb` wrapper over `modbus-serial`:
+Here is an example of using `modbusdb` wrapper over `modbus-deno`:
 
 ``` typescript
-import Modbus from 'modbus-serial';
+import Modbus from 'modbus-deno';
 import { Modbusdb, ModbusSerialDriver, Datamap, createRegisterKey, TypeEnum, ScopeEnum } from "modbusdb";
 
 // create an empty modbus client
@@ -456,6 +501,6 @@ node-modbus-serial use node-serialport for serial communication, for serial port
 it passes to serial port the [openOptions](https://node-serialport.github.io/node-serialport/global.html#openOptions) object,
 default serial port settings are 9600,8,n,1.
 
-``` javascript
+``` typescript
 client.connectRTUBuffered("/dev/ttyUSB0", { baudRate: 9600, parity: 'even' });
 ```

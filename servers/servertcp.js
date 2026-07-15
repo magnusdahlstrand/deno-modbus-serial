@@ -17,7 +17,7 @@
 const events = require("events");
 const EventEmitter = events.EventEmitter || events;
 const net = require("net");
-const modbusSerialDebug = require("debug")("modbus-serial");
+const modbusSerialDebug = require("debug")("modbus-deno");
 
 const HOST = "127.0.0.1";
 const UNIT_ID = 255; // listen to all addresses

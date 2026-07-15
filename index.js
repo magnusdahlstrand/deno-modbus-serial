@@ -19,7 +19,7 @@
  */
 require("./utils/buffer_bit")();
 const crc16 = require("./utils/crc16");
-const modbusSerialDebug = require("debug")("modbus-serial");
+const modbusSerialDebug = require("debug")("modbus-deno");
 
 const events = require("events");
 const EventEmitter = events.EventEmitter || events;
@@ -1439,7 +1439,9 @@ require("./apis/promise")(ModbusRTU);
 require("./apis/worker")(ModbusRTU);
 
 // exports
-module.exports = ModbusRTU;
+module.exports = {};
+
+module.exports.ModbusRTU = ModbusRTU;
 
 module.exports.getPorts = function getPorts() {
     const { SerialPort } = require("serialport");
